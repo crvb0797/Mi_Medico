@@ -8,7 +8,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="./examples/icons.html">
+            <a class="nav-link " href="{{ url('/especialidades') }}">
                 <i class="ni ni-briefcase-24 text-blue"></i> Especialidades
             </a>
         </li>

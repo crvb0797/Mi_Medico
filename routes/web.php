@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\SpecialtyController;
+use App\Http\Controllers\Doctor\HorarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     /* Pacientes */
     Route::resource('pacientes', PatientController::class);
+});
+
+Route::middleware(['auth', 'doctor'])->group(function () {
+    Route::get('/horario', [HorarioController::class, 'edit']);
+    Route::post('/horario', [HorarioController::class, 'store']);
 });

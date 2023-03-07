@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\SpecialtyController;
+use App\Http\Controllers\Api\SpecialtyController as ApiSpecialtyController;
 use App\Http\Controllers\Doctor\HorarioController;
 use App\Http\Controllers\Patient\AppoimentController;
 use App\Http\Controllers\Patient\AppointmentController;
@@ -41,8 +42,11 @@ Route::middleware(['auth', 'doctor'])->group(function () {
     Route::post('/horario', [HorarioController::class, 'store']);
 });
 
-Route::get('/reservarcitas/create', [AppointmentController::class, 'create']);
-Route::post('/miscitas', [AppointmentController::class, 'store']);
 
-/* Route::middleware(['auth', 'paciente'])->group(function () {
-}); */
+Route::middleware('auth')->group(function () {
+    Route::get('/reservarcitas/create', [AppointmentController::class, 'create']);
+    Route::post('/miscitas', [AppointmentController::class, 'store']);
+
+    /* JSON */
+    Route::get('/especialidades/{specialty}/medicos', [ApiSpecialtyController::class, 'doctors']);
+});

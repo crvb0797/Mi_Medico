@@ -32,9 +32,11 @@ use Illuminate\Support\Str;
 
                 <form action="{{ url('/') }}" method="POST">
                     @csrf
+
                     <div class="form-group">
-                        <label for="name">Especialidad</label>
-                        <select name="" id="" class="form-control">
+                        <label for="specialty">Especialidad</label>
+                        <select name="specialty_id" id="specialty" class="form-control">
+                            <option value="">Seleccionar especialidad</option>
                             @foreach ($specialties as $specialty)
                                 <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
                             @endforeach
@@ -42,8 +44,8 @@ use Illuminate\Support\Str;
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Médico</label>
-                        <select name="" id="" class="form-control">
+                        <label for="doctor">Médico</label>
+                        <select name="doctor_id" id="doctor" class="form-control">
 
                         </select>
                     </div>
@@ -80,4 +82,28 @@ use Illuminate\Support\Str;
 
 @section('scripts')
     <script src="{{ asset('js/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <script>
+        let $doctor;
+
+        $(function() {
+            const $specialty = $('#specialty');
+            $doctor = $('#doctor');
+
+            $specialty.change(() => {
+                const specialtyId = $specialty.val();
+                const url = `/especialidades/${specialtyId}/medicos`;
+                $.getJSON(url, onDoctorsLoaded);
+            });
+        });
+
+        function onDoctorsLoaded(doctors) {
+            let htmlOptions = ""
+            doctors.forEach(doctor => {
+                htmlOptions += `<option value="${doctor.id}">${doctor.name}</option>`;
+            });
+
+            $doctor.html(htmlOptions);
+        }
+    </script>
 @endsection

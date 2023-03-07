@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('DPI');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->string('role');
+            $table->string('role')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

@@ -56,15 +56,27 @@ use Illuminate\Support\Str;
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                             </div>
-                            <input class="form-control datepicker" placeholder="Seleccionar fecha" type="text"
-                                value="{{ date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
+                            <input class="form-control datepicker" id="date" placeholder="Seleccionar fecha"
+                                type="text" value="{{ date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                 data-date-start-date="{{ date('Y-m-d') }}" data-date-end-date="+30d">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="address">Hora de atención</label>
-                        <input type="text" name="address" class="form-control" required value="{{ old('address') }}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="m-3" id="titleMorning"></h4>
+                                    <div id="hoursMorning"></div>
+                                </div>
+
+                                <div class="col">
+                                    <h4 class="m-3" id="titleAfternoon"></h4>
+                                    <div id="hoursAfternoon"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -83,27 +95,5 @@ use Illuminate\Support\Str;
 @section('scripts')
     <script src="{{ asset('js/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
-    <script>
-        let $doctor;
-
-        $(function() {
-            const $specialty = $('#specialty');
-            $doctor = $('#doctor');
-
-            $specialty.change(() => {
-                const specialtyId = $specialty.val();
-                const url = `/especialidades/${specialtyId}/medicos`;
-                $.getJSON(url, onDoctorsLoaded);
-            });
-        });
-
-        function onDoctorsLoaded(doctors) {
-            let htmlOptions = ""
-            doctors.forEach(doctor => {
-                htmlOptions += `<option value="${doctor.id}">${doctor.name}</option>`;
-            });
-
-            $doctor.html(htmlOptions);
-        }
-    </script>
+    <script src="{{ asset('./js/appointments/create.js') }}"></script>
 @endsection

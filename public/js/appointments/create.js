@@ -88,7 +88,7 @@ function getRadioIntervaloHTML(intervalo) {
     const text = `${intervalo.start} - ${intervalo.end}`
 
     return `<div class="custom-control custom-radio mb-3">
-            <input required type="radio" id="interval${iRadio}" name="scheduled_time" value="${intervalo.start}" class="custom-control-input" value="${text}">
+            <input required type="radio" id="interval${iRadio}" name="scheduled_time" value="${intervalo.start}" class="custom-control-input">
             <label class="custom-control-label" for="interval${iRadio++}">${text}</label>
             </div>`
 }

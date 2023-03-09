@@ -40,6 +40,6 @@ class UserSeeder extends Seeder
             'role' => 'doctor'
         ]);
 
-        User::factory(50)->create();
+        User::factory(50)->state(['role' => 'paciente'])->create();
     }
 }
